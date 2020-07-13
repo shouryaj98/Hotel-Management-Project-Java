@@ -33,42 +33,32 @@ class Food implements Serializable
 }
 class Singleroom implements Serializable
 {
-    String name;
-    String contact;
-    String gender;   
+    Guest guest;   
     ArrayList<Food> food =new ArrayList<>();
 
    
     Singleroom()
     {
-        this.name="";
+        this.guest=null;
     }
     Singleroom(String name,String contact,String gender)
     {
-        this.name=name;
-        this.contact=contact;
-        this.gender=gender;
+        this.guest= new Guest(name,contact,gender);
     }
 }
 class Doubleroom extends Singleroom implements Serializable
 { 
-    String name2;
-    String contact2;
-    String gender2;  
+    Guest guest2;  
     
     Doubleroom()
     {
-        this.name="";
-        this.name2="";
+        this.guest=null;
+        this.guest2=null;
     }
     Doubleroom(String name,String contact,String gender,String name2,String contact2,String gender2)
     {
-        this.name=name;
-        this.contact=contact;
-        this.gender=gender;
-        this.name2=name2;
-        this.contact2=contact2;
-        this.gender2=gender2;
+    	this.guest= new Guest(name,contact,gender);
+    	this.guest2= new Guest(name2,contact2,gender2);
     }
 }
 class NotAvailable extends Exception
@@ -342,7 +332,7 @@ class Hotel
                     System.out.println("===============");
                     System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb:hotel_hotel_ob.deluxe_singleerrom[rn].food)
+                    for(Food obb:Hotel.hotel_ob.deluxe_singleerrom[rn].food)
                     {
                         amount+=obb.price;
                         String format = "%-10s%-10s%-10s%n";
@@ -362,7 +352,7 @@ class Hotel
         switch (rtype) {
             case 1:               
                 if(hotel_ob.luxury_doublerrom[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.luxury_doublerrom[rn].name);                
+                    System.out.println("Room used by "+hotel_ob.luxury_doublerrom[rn].guest.name);                
                 else 
                 {    
                     System.out.println("Empty Already");
@@ -380,7 +370,7 @@ class Hotel
                 break;
             case 2:
                 if(hotel_ob.deluxe_doublerrom[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.deluxe_doublerrom[rn].name);                
+                    System.out.println("Room used by "+hotel_ob.deluxe_doublerrom[rn].guest.name);                
                 else 
                 {    
                     System.out.println("Empty Already");
@@ -398,7 +388,7 @@ class Hotel
                 break;
             case 3:
                 if(hotel_ob.luxury_singleerrom[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.luxury_singleerrom[rn].name);                
+                    System.out.println("Room used by "+hotel_ob.luxury_singleerrom[rn].guest.name);                
                 else 
                  {    
                     System.out.println("Empty Already");
@@ -416,7 +406,7 @@ class Hotel
                 break;
             case 4:
                 if(hotel_ob.deluxe_singleerrom[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.deluxe_singleerrom[rn].name);                
+                    System.out.println("Room used by "+hotel_ob.deluxe_singleerrom[rn].guest.name);                
                 else 
                  {    
                     System.out.println("Empty Already");
@@ -486,8 +476,8 @@ class write implements Runnable
     public void run() {
           try{
         FileOutputStream fout=new FileOutputStream("backup");
-        objectOutputStream oos=new ObjectOutputStream(fout);
-        oos.writeObject(ob);
+        ObjectOutputStream oos=new ObjectOutputStream(fout);
+        oos.writeObject(oos);
         }
         catch(Exception e)
         {
@@ -498,7 +488,7 @@ class write implements Runnable
     
 }
 
-public class Project3 {
+public class Project {
     public static void main(String[] args){
         
         try
@@ -508,7 +498,8 @@ public class Project3 {
         {
             FileInputStream fin=new FileInputStream(f);
             ObjectInputStream ois=new ObjectInputStream(fin);
-            Hotel.ob=(holder)ois.readObject();
+            Hotel.hotel_ob=(holder) ois.readObject();
+            ois.close();
         }
         Scanner sc = new Scanner(System.in);
         int ch,ch2;
