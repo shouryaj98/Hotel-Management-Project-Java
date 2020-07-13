@@ -8,6 +8,28 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+class FoodItem implements Serializable{
+	float unitPrice;
+	int number;
+	
+	public FoodItem(float unitPrice, int number) {
+		this.unitPrice = unitPrice;
+		this.number = number;
+	}
+	
+}
+
+class FoodList implements Serializable{
+	static ArrayList<FoodItem> foodList=new ArrayList<>();
+	
+	static void initiateFood() {
+		foodList.add(new FoodItem(50,1));
+		foodList.add(new FoodItem(60,2));
+		foodList.add(new FoodItem(70,3));
+		foodList.add(new FoodItem(30,4));
+	}
+}
+
 class Food implements Serializable
 {
     int itemno;
@@ -18,17 +40,7 @@ class Food implements Serializable
     {
         this.itemno=itemno;
         this.quantity=quantity;
-        switch(itemno)
-        {
-            case 1:price=quantity*50;
-                break;
-            case 2:price=quantity*60;
-                break;
-            case 3:price=quantity*70;
-                break;
-            case 4:price=quantity*30;
-                break;
-        }
+        this.price=FoodList.foodList.get(itemno-1).unitPrice*quantity;
     }
 }
 abstract class Room implements Serializable{
@@ -501,7 +513,7 @@ class write implements Runnable
 
 public class Project {
     public static void main(String[] args){
-        
+        FoodList.initiateFood();
         try
         {           
         File f = new File("backup");
