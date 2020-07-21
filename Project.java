@@ -437,6 +437,11 @@ class Hotel
         }
     }
     
+public static holder getHotel_ob() {
+        return hotel_ob;
+    }
+    
+    /*
     static void order(int rn,int rtype)
     {
         int i,q;
@@ -471,7 +476,56 @@ class Hotel
          {
              System.out.println("Cannot be done");
          }
+    }*/
+}
+
+interface Servicios{
+    abstract void darServicios(int rn,int rtype);
+}
+
+class ordenarComida implements Servicios{
+
+    public ordenarComida() {
     }
+
+    
+    @Override
+    public void darServicios(int rn,int rtype) {
+        holder hotel_ob = Hotel.getHotel_ob();
+        int i,q;
+        char wish;
+         try{
+             System.out.println("\n==========\n   Menu:  \n==========\n\n1.Sandwich\tRs.50\n2.Pasta\t\tRs.60\n3.Noodles\tRs.70\n4.Coke\t\tRs.30\n");
+        do
+        {
+            i = sc.nextInt();
+            System.out.print("Quantity- ");
+            q=sc.nextInt();
+           
+              switch(rtype){
+            case 1: hotel_ob.luxury_doublerrom[rn].food.add(new Food(i,q));
+                break;
+            case 2: hotel_ob.deluxe_doublerrom[rn].food.add(new Food(i,q));
+                break;
+            case 3: hotel_ob.luxury_singleerrom[rn].food.add(new Food(i,q));
+                break;
+            case 4: hotel_ob.deluxe_singleerrom[rn].food.add(new Food(i,q));
+                break;                                                 
+        }
+              System.out.println("Do you want to order anything else ? (y/n)");
+              wish=sc.next().charAt(0); 
+        }while(wish=='y'||wish=='Y');  
+        }
+         catch(NullPointerException e)
+            {
+                System.out.println("\nRoom not booked");
+            }
+         catch(Exception e)
+         {
+             System.out.println("Cannot be done");
+         }
+    }
+    
 }
 
 
@@ -500,7 +554,7 @@ class write implements Runnable
 
 public class Project3 {
     public static void main(String[] args){
-        
+        ordenarComida order = new ordenarComida();
         try
         {           
         File f = new File("backup");
@@ -531,19 +585,19 @@ public class Project3 {
                      ch2 = sc.nextInt();
                      Hotel.bookroom(ch2);                     
                 break;
-            case 4:
+            ase 4:
                  System.out.print("Room Number -");
                      ch2 = sc.nextInt();
                      if(ch2>60)
                          System.out.println("Room doesn't exist");
                      else if(ch2>40)
-                         Hotel.order(ch2-41,4);
+                         order.darServicios(ch2-41,4);
                      else if(ch2>30)
-                         Hotel.order(ch2-31,3);
+                         order.darServicios(ch2-31,3);
                      else if(ch2>10)
-                         Hotel.order(ch2-11,2);
+                         order.darServicios(ch2-11,2);
                      else if(ch2>0)
-                         Hotel.order(ch2-1,1);
+                         order.darServicios(ch2-1,1);
                      else
                          System.out.println("Room doesn't exist");
                      break;
