@@ -34,42 +34,41 @@ class Food implements Serializable
 class Singleroom implements Serializable
 {
     String name;
-    String contact;
-    String gender;   
-    ArrayList<Food> food =new ArrayList<>();
-
    
     Singleroom()
     {
         this.name="";
     }
-    Singleroom(String name,String contact,String gender)
+    Singleroom(String name)
     {
         this.name=name;
-        this.contact=contact;
-        this.gender=gender;
     }
 }
 class Doubleroom extends Singleroom implements Serializable
 { 
     String name2;
-    String contact2;
-    String gender2;  
-    
     Doubleroom()
     {
         this.name="";
         this.name2="";
     }
-    Doubleroom(String name,String contact,String gender,String name2,String contact2,String gender2)
+    Doubleroom(String name,String name2)
     {
-        this.name=name;
-        this.contact=contact;
-        this.gender=gender;
-        this.name2=name2;
-        this.contact2=contact2;
-        this.gender2=gender2;
+       this.name=name;
+       this.name2=name2;
     }
+}
+class Guest implements Serializable
+{
+   String contact;
+   String gender;   
+   ArrayList<Food> food =new ArrayList<>();
+   Guest(String contact,String gender)
+   {
+     this.contact=contact;
+     this.gender=gender;
+   }
+
 }
 class NotAvailable extends Exception
 {
