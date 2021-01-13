@@ -90,8 +90,19 @@ class holder implements Serializable
 
 class Hotel
 {
-    static holder hotel_ob=new holder();
-    static Scanner sc = new Scanner(System.in);
+	
+	private static Hotel s_hotel=null;
+    private static holder hotel_ob;
+    private static final Scanner sc = new Scanner(System.in);
+	
+	private Hotel() {}
+	
+	public static Hotel getHotel() {
+		if(s_hotel==null)
+			s_hotel=new Hotel();
+		return s_hotel;
+	}
+
     static void CustDetails(int i,int rn)
     {
         String name, contact, gender;
