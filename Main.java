@@ -49,7 +49,7 @@ class Singleroom implements Serializable
         this.gender=gender;
     }
 }
-class Doubleroom extends Singleroom implements Serializable
+class Doubleroom extends Singleroom
 { 
     String name2;
     String contact2;
@@ -356,7 +356,6 @@ class Hotel
     
     static void deallocate(int rn,int rtype)
     {
-        int j;
         char w;
         switch (rtype) {
             case 1:               
@@ -487,6 +486,7 @@ class write implements Runnable
         FileOutputStream fout=new FileOutputStream("backup");
         ObjectOutputStream oos=new ObjectOutputStream(fout);
         oos.writeObject(hotel_ob);
+        oos.close();
         }
         catch(Exception e)
         {
@@ -508,6 +508,7 @@ public class Main {
             FileInputStream fin=new FileInputStream(f);
             ObjectInputStream ois=new ObjectInputStream(fin);
             Hotel.hotel_ob=(holder)ois.readObject();
+            ois.close();
         }
         Scanner sc = new Scanner(System.in);
         int ch,ch2;
