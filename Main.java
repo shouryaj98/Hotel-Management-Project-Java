@@ -421,7 +421,7 @@ class Hotel
                     System.out.println("Empty Already");
                         return;
                 }
-                System.out.println(" Do you want to checkout ? (y/n)");
+                System.out.println("Do you want to checkout ? (y/n)");
                  w=sc.next().charAt(0);
                 if(w=='y'||w=='Y')
                 {
@@ -458,7 +458,7 @@ class Hotel
             case 4: hotel_ob.deluxe_singleerrom[rn].food.add(new Food(i,q));
                 break;                                                 
         }
-              System.out.println("Do you want to order anything else ? (y/n)");
+              System.out.println("Do you want to order anything else? (y/n)");
               wish=sc.next().charAt(0); 
         }while(wish=='y'||wish=='Y');  
         }
@@ -582,7 +582,7 @@ public class Main {
         }        
             catch(Exception e)
             {
-                System.out.println("Not a valid input");
+                System.out.println("Invalid input");
             }
     }
 }
