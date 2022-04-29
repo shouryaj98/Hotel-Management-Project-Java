@@ -35,7 +35,7 @@ class Singleroom implements Serializable
     String name;
     String contact;
     String gender;   
-    ArrayList<Food> food =new ArrayList<>();
+   
 
    
     Singleroom()
@@ -226,7 +226,7 @@ class Hotel
         }
         System.out.println("Room Booked");
     }
-    
+   
     static void features(int i)
     {
         switch (i) {
