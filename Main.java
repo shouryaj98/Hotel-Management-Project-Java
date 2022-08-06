@@ -110,16 +110,11 @@ class Hotel
         }      
         
           switch (i) {
-            case 1:hotel_ob.luxury_doublerrom[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
-                break;
-            case 2:hotel_ob.deluxe_doublerrom[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
-                break;
-            case 3:hotel_ob.luxury_singleerrom[rn]=new Singleroom(name,contact,gender);
-                break;
-            case 4:hotel_ob.deluxe_singleerrom[rn]=new Singleroom(name,contact,gender);
-                break;
-            default:System.out.println("Wrong option");
-                break;
+            case 1 -> hotel_ob.luxury_doublerrom[rn] = new Doubleroom(name, contact, gender, name2, contact2, gender2);
+            case 2 -> hotel_ob.deluxe_doublerrom[rn] = new Doubleroom(name, contact, gender, name2, contact2, gender2);
+            case 3 -> hotel_ob.luxury_singleerrom[rn] = new Singleroom(name, contact, gender);
+            case 4 -> hotel_ob.deluxe_singleerrom[rn] = new Singleroom(name, contact, gender);
+            default -> System.out.println("Wrong option");
         }
     }
     
