@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//nothing changed //YS SK
+
 class Food implements Serializable
 {
     int itemno;
@@ -17,16 +19,11 @@ class Food implements Serializable
     {
         this.itemno=itemno;
         this.quantity=quantity;
-        switch(itemno)
-        {
-            case 1:price=quantity*50;
-                break;
-            case 2:price=quantity*60;
-                break;
-            case 3:price=quantity*70;
-                break;
-            case 4:price=quantity*30;
-                break;
+        switch (itemno) {
+            case 1 -> price = quantity * 50;
+            case 2 -> price = quantity * 60;
+            case 3 -> price = quantity * 70;
+            case 4 -> price = quantity * 30;
         }
     }
 }
@@ -113,16 +110,11 @@ class Hotel
         }      
         
           switch (i) {
-            case 1:hotel_ob.luxury_doublerrom[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
-                break;
-            case 2:hotel_ob.deluxe_doublerrom[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
-                break;
-            case 3:hotel_ob.luxury_singleerrom[rn]=new Singleroom(name,contact,gender);
-                break;
-            case 4:hotel_ob.deluxe_singleerrom[rn]=new Singleroom(name,contact,gender);
-                break;
-            default:System.out.println("Wrong option");
-                break;
+            case 1 -> hotel_ob.luxury_doublerrom[rn] = new Doubleroom(name, contact, gender, name2, contact2, gender2);
+            case 2 -> hotel_ob.deluxe_doublerrom[rn] = new Doubleroom(name, contact, gender, name2, contact2, gender2);
+            case 3 -> hotel_ob.luxury_singleerrom[rn] = new Singleroom(name, contact, gender);
+            case 4 -> hotel_ob.deluxe_singleerrom[rn] = new Singleroom(name, contact, gender);
+            default -> System.out.println("Wrong option");
         }
     }
     
