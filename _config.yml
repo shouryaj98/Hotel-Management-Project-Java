@@ -1,1 +1,4 @@
 theme: jekyll-theme-slate
+
+- name: Pull Request Stats
+  uses: flowwer-dev/pull-request-stats@v2.5.0
