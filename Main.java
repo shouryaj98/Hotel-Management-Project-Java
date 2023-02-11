@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
@@ -43,29 +45,63 @@ class Food implements Serializable
         }
     }
 }
-class Singleroom implements Serializable
+class Room implements Serializable
 {
-    Guest guest;
+    int capability;
+    HashSet<Guest> guests = new HashSet();
     ArrayList<Food> food =new ArrayList<>();
 
 
-    Singleroom()
+    Room()
     {
-        this.guest = new Guest("", "", "");
+        this.guests = new HashSet<>();
+        this.guests.add(new Guest("", "", ""));
     }
-    Singleroom(String name,String contact,String gender)
-    {
-        this.guest = new Guest(name, contact, gender);
+    Room(int capability, HashSet<Guest> guests) throws SmallRoomException {
+        this.capability = capability;
+        if (guests.size() > capability){
+            throw new SmallRoomException();
+        }
+        this.guests = guests;
     }
-}
-class Doubleroom extends Singleroom implements Serializable
-{
-    Guest guest2;
 
-    Doubleroom(String name,String contact,String gender,String name2,String contact2,String gender2)
-    {
-        this.guest = new Guest(name, contact, gender);
-        this.guest2 = new Guest(name2, contact2, gender2);
+    /**
+     *
+     Create a room with 1 guests capability
+     */
+    Room(String name,String contact,String gender){
+        this.capability = 1;
+        Guest guest1 = new Guest(name, contact, gender);
+
+        HashSet<Guest> guests = new HashSet<>();
+        guests.add(guest1);
+
+        this.guests = guests;
+    }
+
+    /**
+     *
+     Create a room with 2 guests capability
+     */
+    Room(String name,String contact,String gender,String name2,String contact2,String gender2){
+        this.capability = 2;
+        Guest guest1 = new Guest(name, contact, gender);
+        Guest guest2 = new Guest(name2, contact2, gender2);
+
+        HashSet<Guest> guests = new HashSet<>();
+        guests.add(guest1);
+        guests.add(guest2);
+
+        this.guests = guests;
+    }
+
+    /**
+     *
+     return room's main user
+     */
+    public Guest getUser(){
+        Iterator<Guest> iterator = this.guests.iterator();
+        return iterator.next();
     }
 }
 class NotAvailable extends Exception
@@ -77,12 +113,21 @@ class NotAvailable extends Exception
     }
 }
 
+class SmallRoomException extends Exception
+{
+    @Override
+    public String toString()
+    {
+        return "number of guests is more than room capability";
+    }
+}
+
 class holder implements Serializable
 {
-    Doubleroom luxury_doublerrom[]=new Doubleroom[10]; //Luxury
-    Doubleroom deluxe_doublerrom[]=new Doubleroom[20]; //Deluxe
-    Singleroom luxury_singleerrom[]=new Singleroom[10]; //Luxury
-    Singleroom deluxe_singleerrom[]=new Singleroom[20]; //Deluxe
+    Room luxury_doublerrom[]=new Room[10]; //Luxury
+    Room deluxe_doublerrom[]=new Room[20]; //Deluxe
+    Room luxury_singleerrom[]=new Room[10]; //Luxury
+    Room deluxe_singleerrom[]=new Room[20]; //Deluxe
 }
 
 class Hotel
@@ -111,13 +156,13 @@ class Hotel
         }
 
           switch (i) {
-            case 1:hotel_ob.luxury_doublerrom[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
+            case 1:hotel_ob.luxury_doublerrom[rn]=new Room(name,contact,gender,name2,contact2,gender2);
                 break;
-            case 2:hotel_ob.deluxe_doublerrom[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
+            case 2:hotel_ob.deluxe_doublerrom[rn]=new Room(name,contact,gender,name2,contact2,gender2);
                 break;
-            case 3:hotel_ob.luxury_singleerrom[rn]=new Singleroom(name,contact,gender);
+            case 3:hotel_ob.luxury_singleerrom[rn]=new Room(name,contact,gender);
                 break;
-            case 4:hotel_ob.deluxe_singleerrom[rn]=new Singleroom(name,contact,gender);
+            case 4:hotel_ob.deluxe_singleerrom[rn]=new Room(name,contact,gender);
                 break;
             default:System.out.println("Wrong option");
                 break;
@@ -359,7 +404,7 @@ class Hotel
         switch (rtype) {
             case 1:
                 if(hotel_ob.luxury_doublerrom[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.luxury_doublerrom[rn].guest.name);
+                    System.out.println("Room used by "+hotel_ob.luxury_doublerrom[rn].getUser().name);
                 else
                 {
                     System.out.println("Empty Already");
@@ -377,7 +422,7 @@ class Hotel
                 break;
             case 2:
                 if(hotel_ob.deluxe_doublerrom[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.deluxe_doublerrom[rn].guest.name);
+                    System.out.println("Room used by "+hotel_ob.deluxe_doublerrom[rn].getUser().name);
                 else
                 {
                     System.out.println("Empty Already");
@@ -395,7 +440,7 @@ class Hotel
                 break;
             case 3:
                 if(hotel_ob.luxury_singleerrom[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.luxury_singleerrom[rn].guest.name);
+                    System.out.println("Room used by "+hotel_ob.luxury_singleerrom[rn].getUser().name);
                 else
                  {
                     System.out.println("Empty Already");
@@ -413,7 +458,7 @@ class Hotel
                 break;
             case 4:
                 if(hotel_ob.deluxe_singleerrom[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.deluxe_singleerrom[rn].guest.name);
+                    System.out.println("Room used by "+hotel_ob.deluxe_singleerrom[rn].getUser().name);
                 else
                  {
                     System.out.println("Empty Already");
