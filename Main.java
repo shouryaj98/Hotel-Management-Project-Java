@@ -586,3 +586,6 @@ public class Main {
             }
     }
 }
+public static void (){
+System.out.println("hello world");
+}
