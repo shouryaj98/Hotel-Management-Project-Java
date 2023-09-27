@@ -87,7 +87,7 @@ class holder implements Serializable {
 class Hotel {
     static holder hotel_ob = new holder();
     static Scanner sc = new Scanner(System.in);
-
+    static ArrayList<User> users = new ArrayList<>();
     static void CustDetails(int i, int rn) {
         String name, contact, gender;
         String name2 = null, contact2 = null;
@@ -126,6 +126,8 @@ class Hotel {
         }
     }
 
+
+
     static void bookRoom(int i) {
         int j;
         int rn;
@@ -140,19 +142,30 @@ class Hotel {
                 System.out.println("Enter room number: ");
                 try {
                     String roomNumber = sc.nextLine();
-                    if(!roomNumber.matches("[0-9]+")) {
+                    if (!roomNumber.matches("[0-9]+")) {
                         throw new IllegalAccessException("incorrect room number");
                     }
                     rn = Integer.parseInt(roomNumber);
                     rn--;
+                    if (rn < 0 || rn >= hotel_ob.luxury_doublerrom.length) {
+                        throw new IllegalArgumentException("Invalid room number");
+                    }
                     if (hotel_ob.luxury_doublerrom[rn] != null)
                         throw new NotAvailable();
                     CustDetails(i, rn);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid room number format");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }catch (NotAvailable e) {
+                    System.out.println("Room not available");
                 } catch (Exception e) {
+
                     System.out.println("Invalid Option");
                     return;
                 }
                 break;
+
             case 2:
                 for (j = 0; j < hotel_ob.deluxe_doublerrom.length; j++) {
                     if (hotel_ob.deluxe_doublerrom[j] == null) {
@@ -449,7 +462,23 @@ class Hotel {
         }
     }
 }
+class User {
+    private String username;
+    private String password;
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+}
 
 class write implements Runnable {
     holder hotel_ob;
@@ -460,14 +489,16 @@ class write implements Runnable {
 
     @Override
     public void run() {
-        try {
-            FileOutputStream fout = new FileOutputStream("backup");
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(hotel_ob);
-        } catch (Exception e) {
-            System.out.println("Error in writing " + e);
-        }
+        synchronized (hotel_ob) {
+            try {
+                FileOutputStream fout = new FileOutputStream("backup");
+                ObjectOutputStream oos = new ObjectOutputStream(fout);
+                oos.writeObject(hotel_ob);
+            } catch (Exception e) {
+                System.out.println("Error in writing " + e);
+            }
 
+        }
     }
 
 }
@@ -475,12 +506,17 @@ class write implements Runnable {
 public class Main {
     public static void main(String[] args) {
 
+
         try {
             File f = new File("backup");
             if (f.exists()) {
                 FileInputStream fin = new FileInputStream(f);
                 ObjectInputStream ois = new ObjectInputStream(fin);
-                Hotel.hotel_ob = (holder) ois.readObject();
+
+                synchronized (Hotel.hotel_ob) {
+                    Hotel.hotel_ob = (holder) ois.readObject();
+
+                }
             }
             Scanner sc = new Scanner(System.in);
             int ch, ch2;
@@ -543,11 +579,11 @@ public class Main {
 
                 }
 
-                System.out.println("\nContinue : (y/n)");
+                System.out.println("Continue : (y/n)");
                 wish = sc.next().charAt(0);
                 if (!(wish == 'y' || wish == 'Y' || wish == 'n' || wish == 'N')) {
                     System.out.println("Invalid Option");
-                    System.out.println("\nContinue : (y/n)");
+                    System.out.println("Continue : (y/n)");
                     wish = sc.next().charAt(0);
                 }
 
@@ -556,7 +592,7 @@ public class Main {
             Thread t = new Thread(new write(Hotel.hotel_ob));
             t.start();
         } catch (Exception e) {
-            System.out.println("Not a valid input");
+            System.out.println("Not a valid input" + e.toString());
         }
     }
 }
