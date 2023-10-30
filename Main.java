@@ -497,9 +497,68 @@ class write implements Runnable
     
 }
 
+//format the form of inputs
+class MyFormatter {
+    private static MyFormatter instance = new MyFormatter();
+
+    private MyFormatter() {
+    }
+
+    public static MyFormatter getInstance() {
+        return instance;
+    }
+
+    //Get a formatted int
+    public int getInt(Scanner scanner) {
+        int result;
+        while (true) {
+            while (!scanner.hasNextInt()) {
+                scanner.next();
+                System.out.println("\n You should enter an Integer.Please try again.\n");
+            }
+            result = scanner.nextInt();
+            break;
+        }
+        return result;
+    }
+
+    //Get a formatted int between min and max
+    public int getInt(int min, int max, Scanner scanner) {
+        int result;
+        while (true) {
+            while (!scanner.hasNextInt()) {
+                scanner.next();
+                System.out.println("You should enter an Integer.Please try again.");
+            }
+            result = scanner.nextInt();
+            if (result >= min && result <= max)
+                break;
+            else {
+                System.out.println("Your input number should be greater than or equal to " + min + " and less than or equal to " + max + ". Please try again.");
+            }
+        }
+        return result;
+    }
+
+
+    // Get a numeric string
+    public int getNumStr(Scanner scanner) {
+        int result;
+        while (true) {
+            while (!scanner.hasNextInt()) {
+                scanner.next();
+                System.out.println("Your input string should not contain non-numeric characters.");
+            }
+            result = scanner.nextInt();
+            break;
+        }
+        return result;
+    }
+}
+
 public class Main {
     public static void main(String[] args){
-        
+
         try
         {           
         File f = new File("backup");
@@ -516,23 +575,23 @@ public class Main {
         do{
 
         System.out.println("\nEnter your choice :\n1.Display room details\n2.Display room availability \n3.Book\n4.Order food\n5.Checkout\n6.Exit\n");
-        ch = sc.nextInt();
+        ch = MyFormatter.getInstance().getInt(1,6,sc);
         switch(ch){
             case 1: System.out.println("\nChoose room type :\n1.Luxury Double Room \n2.Deluxe Double Room \n3.Luxury Single Room \n4.Deluxe Single Room\n");
-                    ch2 = sc.nextInt();
+                    ch2 = MyFormatter.getInstance().getInt(1,4,sc);
                     Hotel.features(ch2);
                 break;
             case 2:System.out.println("\nChoose room type :\n1.Luxury Double Room \n2.Deluxe Double Room \n3.Luxury Single Room\n4.Deluxe Single Room\n");
-                     ch2 = sc.nextInt();
+                     ch2 = MyFormatter.getInstance().getInt(1,4,sc);
                      Hotel.availability(ch2);
                 break;
             case 3:System.out.println("\nChoose room type :\n1.Luxury Double Room \n2.Deluxe Double Room \n3.Luxury Single Room\n4.Deluxe Single Room\n");
-                     ch2 = sc.nextInt();
+                     ch2 = MyFormatter.getInstance().getInt(1,4,sc);
                      Hotel.bookroom(ch2);                     
                 break;
             case 4:
                  System.out.print("Room Number -");
-                     ch2 = sc.nextInt();
+                     ch2 = MyFormatter.getInstance().getInt(sc);
                      if(ch2>60)
                          System.out.println("Room doesn't exist");
                      else if(ch2>40)
@@ -548,7 +607,7 @@ public class Main {
                      break;
             case 5:                 
                 System.out.print("Room Number -");
-                     ch2 = sc.nextInt();
+                     ch2 = MyFormatter.getInstance().getInt(sc);
                      if(ch2>60)
                          System.out.println("Room doesn't exist");
                      else if(ch2>40)
