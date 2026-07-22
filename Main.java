@@ -59,21 +59,53 @@ class Food implements Serializable
 
 class Singleroom implements Serializable
 {
-    String name;
-    String contact;
-    String gender;   
-    ArrayList<Food> food =new ArrayList<>();
+    private String name;
+    private String contact;
+    private String gender;
+    private ArrayList<Food> food =new ArrayList<>();
 
    
     Singleroom()
     {
-        this.name="";
+        this.setName("");
     }
     Singleroom(String name,String contact,String gender)
     {
-        this.name=name;
-        this.contact=contact;
-        this.gender=gender;
+        this.setName(name);
+        this.setContact(contact);
+        this.setGender(gender);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public ArrayList<Food> getFood() {
+        return food;
+    }
+
+    public void setFood(ArrayList<Food> food) {
+        this.food = food;
     }
 }
 class Doubleroom extends Singleroom implements Serializable
@@ -84,14 +116,14 @@ class Doubleroom extends Singleroom implements Serializable
     
     Doubleroom()
     {
-        this.name="";
+        this.setName("");
         this.setName2("");
     }
     Doubleroom(String name,String contact,String gender,String name2,String contact2,String gender2)
     {
-        this.name=name;
-        this.contact=contact;
-        this.gender=gender;
+        this.setName(name);
+        this.setContact(contact);
+        this.setGender(gender);
         this.setName2(name2);
         this.setContact2(contact2);
         this.setGender2(gender2);
@@ -388,7 +420,7 @@ class Hotel
                     System.out.println("===============");
                      System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb: hotel_ob.getLuxury_doubler()[rn].food)
+                    for(Food obb: hotel_ob.getLuxury_doubler()[rn].getFood())
                     {
                         amount+=obb.getPrice();
                         String format = "%-10s%-10s%-10s%n";
@@ -402,7 +434,7 @@ class Hotel
                     System.out.println("===============");
                      System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb: hotel_ob.getDeluxe_doubler()[rn].food)
+                    for(Food obb: hotel_ob.getDeluxe_doubler()[rn].getFood())
                     {
                         amount+=obb.getPrice();
                         String format = "%-10s%-10s%-10s%n";
@@ -415,7 +447,7 @@ class Hotel
                     System.out.println("===============");
                     System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb: hotel_ob.getLuxury_singletree()[rn].food)
+                    for(Food obb: hotel_ob.getLuxury_singletree()[rn].getFood())
                     {
                         amount+=obb.getPrice();
                         String format = "%-10s%-10s%-10s%n";
@@ -428,7 +460,7 @@ class Hotel
                     System.out.println("===============");
                     System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb: hotel_ob.getDeluxe_singletree()[rn].food)
+                    for(Food obb: hotel_ob.getDeluxe_singletree()[rn].getFood())
                     {
                         amount+=obb.getPrice();
                         String format = "%-10s%-10s%-10s%n";
@@ -448,7 +480,7 @@ class Hotel
         switch (retype) {
             case 1:               
                 if(hotel_ob.getLuxury_doubler()[rn]!=null)
-                    System.out.println("Room used by "+ hotel_ob.getLuxury_doubler()[rn].name);
+                    System.out.println("Room used by "+ hotel_ob.getLuxury_doubler()[rn].getName());
                 else 
                 {    
                     System.out.println("Empty Already");
@@ -466,7 +498,7 @@ class Hotel
                 break;
             case 2:
                 if(hotel_ob.getDeluxe_doubler()[rn]!=null)
-                    System.out.println("Room used by "+ hotel_ob.getDeluxe_doubler()[rn].name);
+                    System.out.println("Room used by "+ hotel_ob.getDeluxe_doubler()[rn].getName());
                 else 
                 {    
                     System.out.println("Empty Already");
@@ -484,7 +516,7 @@ class Hotel
                 break;
             case 3:
                 if(hotel_ob.getLuxury_singletree()[rn]!=null)
-                    System.out.println("Room used by "+ hotel_ob.getLuxury_singletree()[rn].name);
+                    System.out.println("Room used by "+ hotel_ob.getLuxury_singletree()[rn].getName());
                 else 
                  {    
                     System.out.println("Empty Already");
@@ -502,7 +534,7 @@ class Hotel
                 break;
             case 4:
                 if(hotel_ob.getDeluxe_singletree()[rn]!=null)
-                    System.out.println("Room used by "+ hotel_ob.getDeluxe_singletree()[rn].name);
+                    System.out.println("Room used by "+ hotel_ob.getDeluxe_singletree()[rn].getName());
                 else 
                  {    
                     System.out.println("Empty Already");
@@ -536,13 +568,13 @@ class Hotel
             q=sc.nextInt();
            
               switch(rtype){
-            case 1: hotel_ob.getLuxury_doubler()[rn].food.add(new Food(i,q));
+            case 1: hotel_ob.getLuxury_doubler()[rn].getFood().add(new Food(i,q));
                 break;
-            case 2: hotel_ob.getDeluxe_doubler()[rn].food.add(new Food(i,q));
+            case 2: hotel_ob.getDeluxe_doubler()[rn].getFood().add(new Food(i,q));
                 break;
-            case 3: hotel_ob.getLuxury_singletree()[rn].food.add(new Food(i,q));
+            case 3: hotel_ob.getLuxury_singletree()[rn].getFood().add(new Food(i,q));
                 break;
-            case 4: hotel_ob.getDeluxe_singletree()[rn].food.add(new Food(i,q));
+            case 4: hotel_ob.getDeluxe_singletree()[rn].getFood().add(new Food(i,q));
                 break;                                                 
         }
               System.out.println("Do you want to order anything else ? (y/n)");
