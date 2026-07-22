@@ -259,24 +259,30 @@ class Hotel
                     }
                 }
                 System.out.print("\nEnter room number: ");
-                try{
-                rn=sc.nextInt();
-                rn--;
-                if(hotel_ob.getLuxury_doubler()[rn]!=null)
-                    throw new NotAvailable();
-                CustDetails(i,rn);
+                try {
+                    rn = sc.nextInt();
+                    rn--;
+
+                    if(rn < 0 || rn >= hotel_ob.getLuxury_doubler().length)
+                    {
+                        System.out.println("Invalid room number");
+                        return;
+                    }
+
+                    if(hotel_ob.getLuxury_doubler()[rn] != null)
+                        throw new NotAvailable();
+
+                    CustDetails(i,rn);
                 }
                 catch(NotAvailable e)
                 {
                     System.out.println(e.getMessage());
-                    return;
                 }
-                catch (InputMismatchException e) {
+                catch(InputMismatchException e)
+                {
                     System.out.println("Please enter numbers only.");
-                    sc.nextLine(); // clear invalid input
-                    return;
+                    sc.nextLine();
                 }
-                break;
             case 2:
                  for(j=0; j< hotel_ob.getDeluxe_doubler().length; j++)
                 {
@@ -289,6 +295,11 @@ class Hotel
                 try{
                 rn=sc.nextInt();
                 rn=rn-11;
+                    if(rn < 0 || rn >= hotel_ob.getDeluxe_doubler().length)
+                    {
+                        System.out.println("Invalid room number");
+                        return;
+                    }
                 if(hotel_ob.getDeluxe_doubler()[rn]!=null)
                     throw new NotAvailable();
                 CustDetails(i,rn);
@@ -316,6 +327,11 @@ class Hotel
                 try{
                 rn=sc.nextInt();
                 rn=rn-31;
+                    if(rn < 0 || rn >= hotel_ob.getLuxury_singletree().length)
+                    {
+                        System.out.println("Invalid room number");
+                        return;
+                    }
                 if(hotel_ob.getLuxury_singletree()[rn]!=null)
                     throw new NotAvailable();
                 CustDetails(i,rn);
@@ -344,6 +360,11 @@ class Hotel
                 try{
                 rn=sc.nextInt();
                 rn=rn-41;
+                    if(rn < 0 || rn >= hotel_ob.getDeluxe_singletree().length)
+                    {
+                        System.out.println("Invalid room number");
+                        return;
+                    }
                 if(hotel_ob.getDeluxe_singletree()[rn]!=null)
                     throw new NotAvailable();
                 CustDetails(i,rn);
@@ -605,10 +626,11 @@ class Hotel
              System.out.println("Please enter correct input");
              sc.nextLine();
          }
-         catch(NullPointerException e)
-            {
-                System.out.println("\nRoom not booked");
-            }
+        if(hotel_ob.getLuxury_doubler()[rn] == null)
+        {
+            System.out.println("Room not booked");
+            return;
+        }
 
     }
 }
