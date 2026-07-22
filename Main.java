@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Food implements Serializable
@@ -155,11 +156,9 @@ class Doubleroom extends Singleroom implements Serializable
 }
 class NotAvailable extends Exception
 {
-    @Override
-    public String toString()
-    {
-        return "Not Available !";
-    }
+   NotAvailable(){
+       super("Not Available");
+   }
 }
 
 class holder implements Serializable
@@ -267,9 +266,14 @@ class Hotel
                     throw new NotAvailable();
                 CustDetails(i,rn);
                 }
-                catch(Exception e)
+                catch(NotAvailable e)
                 {
-                    System.out.println("Invalid Option");
+                    System.out.println(e.getMessage());
+                    return;
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("Please enter numbers only.");
+                    sc.nextLine(); // clear invalid input
                     return;
                 }
                 break;
@@ -289,9 +293,14 @@ class Hotel
                     throw new NotAvailable();
                 CustDetails(i,rn);
                 }
-                catch(Exception e)
+                catch(NotAvailable e)
                 {
-                    System.out.println("Invalid Option");
+                    System.out.println(e.getMessage());
+                    return;
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("Please enter numbers only.");
+                    sc.nextLine(); // clear invalid input
                     return;
                 }
                 break;
@@ -311,11 +320,17 @@ class Hotel
                     throw new NotAvailable();
                 CustDetails(i,rn);
                 }
-                catch(Exception e)
+                catch(NotAvailable e)
                 {
-                    System.out.println("Invalid Option");
+                    System.out.println(e.getMessage());
                     return;
                 }
+                catch (InputMismatchException e) {
+                    System.out.println("Please enter numbers only.");
+                    sc.nextLine(); // clear invalid input
+                    return;
+                }
+
                 break;
             case 4:
                   for(j=0; j< hotel_ob.getDeluxe_singletree().length; j++)
@@ -333,9 +348,14 @@ class Hotel
                     throw new NotAvailable();
                 CustDetails(i,rn);
                 }
-                catch(Exception e)
+                catch(NotAvailable e)
                 {
-                   System.out.println("Invalid Option");
+                   System.out.println(e.getMessage());
+                    return;
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("Please enter numbers only.");
+                    sc.nextLine(); // clear invalid input
                     return;
                 }
                 break;
@@ -581,14 +601,15 @@ class Hotel
               wish=sc.next().charAt(0); 
         }while(wish=='y'||wish=='Y');  
         }
+         catch (InputMismatchException e) {
+             System.out.println("Please enter correct input");
+             sc.nextLine();
+         }
          catch(NullPointerException e)
             {
                 System.out.println("\nRoom not booked");
             }
-         catch(Exception e)
-         {
-             System.out.println("Cannot be done");
-         }
+
     }
 }
 
@@ -701,6 +722,7 @@ public class Main {
         }        
             catch(Exception e)
             {
+                e.printStackTrace();
                 System.out.println("Not a valid input");
             }
     }
