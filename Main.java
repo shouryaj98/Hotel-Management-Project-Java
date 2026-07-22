@@ -132,10 +132,42 @@ class NotAvailable extends Exception
 
 class holder implements Serializable
 {
-    Doubleroom luxury_doubler[]=new Doubleroom[10]; //Luxury
-    Doubleroom deluxe_doubler[]=new Doubleroom[20]; //Deluxe
-    Singleroom luxury_singletree[]=new Singleroom[10]; //Luxury
-    Singleroom deluxe_singletree[]=new Singleroom[20]; //Deluxe
+    private Doubleroom[] luxury_doubler =new Doubleroom[10]; //Luxury
+    private Doubleroom[] deluxe_doubler =new Doubleroom[20]; //Deluxe
+    private Singleroom[] luxury_singletree =new Singleroom[10]; //Luxury
+    private Singleroom[] deluxe_singletree =new Singleroom[20]; //Deluxe
+
+    public Doubleroom[] getLuxury_doubler() {
+        return luxury_doubler;
+    }
+
+    public void setLuxury_doubler(Doubleroom[] luxury_doubler) {
+        this.luxury_doubler = luxury_doubler;
+    }
+
+    public Doubleroom[] getDeluxe_doubler() {
+        return deluxe_doubler;
+    }
+
+    public void setDeluxe_doubler(Doubleroom[] deluxe_doubler) {
+        this.deluxe_doubler = deluxe_doubler;
+    }
+
+    public Singleroom[] getLuxury_singletree() {
+        return luxury_singletree;
+    }
+
+    public void setLuxury_singletree(Singleroom[] luxury_singletree) {
+        this.luxury_singletree = luxury_singletree;
+    }
+
+    public Singleroom[] getDeluxe_singletree() {
+        return deluxe_singletree;
+    }
+
+    public void setDeluxe_singletree(Singleroom[] deluxe_singletree) {
+        this.deluxe_singletree = deluxe_singletree;
+    }
 }
 
 class Hotel
@@ -164,13 +196,17 @@ class Hotel
         }      
         
           switch (i) {
-            case 1:hotel_ob.luxury_doubler[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
+            case 1:
+                hotel_ob.getLuxury_doubler()[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
                 break;
-            case 2:hotel_ob.deluxe_doubler[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
+            case 2:
+                hotel_ob.getDeluxe_doubler()[rn]=new Doubleroom(name,contact,gender,name2,contact2,gender2);
                 break;
-            case 3:hotel_ob.luxury_singletree[rn]=new Singleroom(name,contact,gender);
+            case 3:
+                hotel_ob.getLuxury_singletree()[rn]=new Singleroom(name,contact,gender);
                 break;
-            case 4:hotel_ob.deluxe_singletree[rn]=new Singleroom(name,contact,gender);
+            case 4:
+                hotel_ob.getDeluxe_singletree()[rn]=new Singleroom(name,contact,gender);
                 break;
             default:System.out.println("Wrong option");
                 break;
@@ -184,9 +220,9 @@ class Hotel
         System.out.println("\nChoose room number from : ");
         switch (i) {
             case 1:
-                for(j=0; j<hotel_ob.luxury_doubler.length; j++)
+                for(j=0; j< hotel_ob.getLuxury_doubler().length; j++)
                 {
-                    if(hotel_ob.luxury_doubler[j]==null)
+                    if(hotel_ob.getLuxury_doubler()[j]==null)
                     {
                         System.out.print(j+1+",");
                     }
@@ -195,7 +231,7 @@ class Hotel
                 try{
                 rn=sc.nextInt();
                 rn--;
-                if(hotel_ob.luxury_doubler[rn]!=null)
+                if(hotel_ob.getLuxury_doubler()[rn]!=null)
                     throw new NotAvailable();
                 CustDetails(i,rn);
                 }
@@ -206,9 +242,9 @@ class Hotel
                 }
                 break;
             case 2:
-                 for(j=0; j<hotel_ob.deluxe_doubler.length; j++)
+                 for(j=0; j< hotel_ob.getDeluxe_doubler().length; j++)
                 {
-                    if(hotel_ob.deluxe_doubler[j]==null)
+                    if(hotel_ob.getDeluxe_doubler()[j]==null)
                     {
                         System.out.print(j+11+",");
                     }
@@ -217,7 +253,7 @@ class Hotel
                 try{
                 rn=sc.nextInt();
                 rn=rn-11;
-                if(hotel_ob.deluxe_doubler[rn]!=null)
+                if(hotel_ob.getDeluxe_doubler()[rn]!=null)
                     throw new NotAvailable();
                 CustDetails(i,rn);
                 }
@@ -228,9 +264,9 @@ class Hotel
                 }
                 break;
             case 3:
-                  for(j=0; j<hotel_ob.luxury_singletree.length; j++)
+                  for(j=0; j< hotel_ob.getLuxury_singletree().length; j++)
                 {
-                    if(hotel_ob.luxury_singletree[j]==null)
+                    if(hotel_ob.getLuxury_singletree()[j]==null)
                     {
                         System.out.print(j+31+",");
                     }
@@ -239,7 +275,7 @@ class Hotel
                 try{
                 rn=sc.nextInt();
                 rn=rn-31;
-                if(hotel_ob.luxury_singletree[rn]!=null)
+                if(hotel_ob.getLuxury_singletree()[rn]!=null)
                     throw new NotAvailable();
                 CustDetails(i,rn);
                 }
@@ -250,9 +286,9 @@ class Hotel
                 }
                 break;
             case 4:
-                  for(j=0; j<hotel_ob.deluxe_singletree.length; j++)
+                  for(j=0; j< hotel_ob.getDeluxe_singletree().length; j++)
                 {
-                    if(hotel_ob.deluxe_singletree[j]==null)
+                    if(hotel_ob.getDeluxe_singletree()[j]==null)
                     {
                         System.out.print(j+41+",");
                     }
@@ -261,7 +297,7 @@ class Hotel
                 try{
                 rn=sc.nextInt();
                 rn=rn-41;
-                if(hotel_ob.deluxe_singletree[rn]!=null)
+                if(hotel_ob.getDeluxe_singletree()[rn]!=null)
                     throw new NotAvailable();
                 CustDetails(i,rn);
                 }
@@ -302,28 +338,28 @@ class Hotel
             case 1:
                 for(j=0;j<10;j++)
                 {
-                    if(hotel_ob.luxury_doubler[j]==null)
+                    if(hotel_ob.getLuxury_doubler()[j]==null)
                         count++;
                 }
                 break;
             case 2:
-                for(j=0; j<hotel_ob.deluxe_doubler.length; j++)
+                for(j=0; j< hotel_ob.getDeluxe_doubler().length; j++)
                 {
-                    if(hotel_ob.deluxe_doubler[j]==null)
+                    if(hotel_ob.getDeluxe_doubler()[j]==null)
                         count++;
                 }
                 break;
             case 3:
-                for(j=0; j<hotel_ob.luxury_singletree.length; j++)
+                for(j=0; j< hotel_ob.getLuxury_singletree().length; j++)
                 {
-                    if(hotel_ob.luxury_singletree[j]==null)
+                    if(hotel_ob.getLuxury_singletree()[j]==null)
                         count++;
                 }
                 break;
             case 4:
-                for(j=0; j<hotel_ob.deluxe_singletree.length; j++)
+                for(j=0; j< hotel_ob.getDeluxe_singletree().length; j++)
                 {
-                    if(hotel_ob.deluxe_singletree[j]==null)
+                    if(hotel_ob.getDeluxe_singletree()[j]==null)
                         count++;
                 }
                 break;
@@ -352,7 +388,7 @@ class Hotel
                     System.out.println("===============");
                      System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb:hotel_ob.luxury_doubler[rn].food)
+                    for(Food obb: hotel_ob.getLuxury_doubler()[rn].food)
                     {
                         amount+=obb.getPrice();
                         String format = "%-10s%-10s%-10s%n";
@@ -366,7 +402,7 @@ class Hotel
                     System.out.println("===============");
                      System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb:hotel_ob.deluxe_doubler[rn].food)
+                    for(Food obb: hotel_ob.getDeluxe_doubler()[rn].food)
                     {
                         amount+=obb.getPrice();
                         String format = "%-10s%-10s%-10s%n";
@@ -379,7 +415,7 @@ class Hotel
                     System.out.println("===============");
                     System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb:hotel_ob.luxury_singletree[rn].food)
+                    for(Food obb: hotel_ob.getLuxury_singletree()[rn].food)
                     {
                         amount+=obb.getPrice();
                         String format = "%-10s%-10s%-10s%n";
@@ -392,7 +428,7 @@ class Hotel
                     System.out.println("===============");
                     System.out.println("Item   Quantity    Price");
                     System.out.println("-------------------------");
-                    for(Food obb: hotel_ob.deluxe_singletree[rn].food)
+                    for(Food obb: hotel_ob.getDeluxe_singletree()[rn].food)
                     {
                         amount+=obb.getPrice();
                         String format = "%-10s%-10s%-10s%n";
@@ -411,8 +447,8 @@ class Hotel
         char w;
         switch (retype) {
             case 1:               
-                if(hotel_ob.luxury_doubler[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.luxury_doubler[rn].name);
+                if(hotel_ob.getLuxury_doubler()[rn]!=null)
+                    System.out.println("Room used by "+ hotel_ob.getLuxury_doubler()[rn].name);
                 else 
                 {    
                     System.out.println("Empty Already");
@@ -423,14 +459,14 @@ class Hotel
                 if(w=='y'||w=='Y')
                 {
                     bill(rn, retype);
-                    hotel_ob.luxury_doubler[rn]=null;
+                    hotel_ob.getLuxury_doubler()[rn]=null;
                     System.out.println("Deallocated successfully");
                 }
                 
                 break;
             case 2:
-                if(hotel_ob.deluxe_doubler[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.deluxe_doubler[rn].name);
+                if(hotel_ob.getDeluxe_doubler()[rn]!=null)
+                    System.out.println("Room used by "+ hotel_ob.getDeluxe_doubler()[rn].name);
                 else 
                 {    
                     System.out.println("Empty Already");
@@ -441,14 +477,14 @@ class Hotel
                 if(w=='y'||w=='Y')
                 {
                     bill(rn, retype);
-                    hotel_ob.deluxe_doubler[rn]=null;
+                    hotel_ob.getDeluxe_doubler()[rn]=null;
                     System.out.println("Deallocated successfully");
                 }
                  
                 break;
             case 3:
-                if(hotel_ob.luxury_singletree[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.luxury_singletree[rn].name);
+                if(hotel_ob.getLuxury_singletree()[rn]!=null)
+                    System.out.println("Room used by "+ hotel_ob.getLuxury_singletree()[rn].name);
                 else 
                  {    
                     System.out.println("Empty Already");
@@ -459,14 +495,14 @@ class Hotel
                 if(w=='y'||w=='Y')
                 {
                     bill(rn, retype);
-                    hotel_ob.luxury_singletree[rn]=null;
+                    hotel_ob.getLuxury_singletree()[rn]=null;
                     System.out.println("Deallocated successfully");
                 }
                 
                 break;
             case 4:
-                if(hotel_ob.deluxe_singletree[rn]!=null)
-                    System.out.println("Room used by "+hotel_ob.deluxe_singletree[rn].name);
+                if(hotel_ob.getDeluxe_singletree()[rn]!=null)
+                    System.out.println("Room used by "+ hotel_ob.getDeluxe_singletree()[rn].name);
                 else 
                  {    
                     System.out.println("Empty Already");
@@ -477,7 +513,7 @@ class Hotel
                 if(w=='y'||w=='Y')
                 {
                     bill(rn, retype);
-                    hotel_ob.deluxe_singletree[rn]=null;
+                    hotel_ob.getDeluxe_singletree()[rn]=null;
                     System.out.println("Deallocated successfully");
                 }
                 break;
@@ -500,13 +536,13 @@ class Hotel
             q=sc.nextInt();
            
               switch(rtype){
-            case 1: hotel_ob.luxury_doubler[rn].food.add(new Food(i,q));
+            case 1: hotel_ob.getLuxury_doubler()[rn].food.add(new Food(i,q));
                 break;
-            case 2: hotel_ob.deluxe_doubler[rn].food.add(new Food(i,q));
+            case 2: hotel_ob.getDeluxe_doubler()[rn].food.add(new Food(i,q));
                 break;
-            case 3: hotel_ob.luxury_singletree[rn].food.add(new Food(i,q));
+            case 3: hotel_ob.getLuxury_singletree()[rn].food.add(new Food(i,q));
                 break;
-            case 4: hotel_ob.deluxe_singletree[rn].food.add(new Food(i,q));
+            case 4: hotel_ob.getDeluxe_singletree()[rn].food.add(new Food(i,q));
                 break;                                                 
         }
               System.out.println("Do you want to order anything else ? (y/n)");
